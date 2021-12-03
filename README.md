@@ -10,4 +10,4 @@ This project contains the following scripts:
 - [03 - pdfReport.py](https://github.com/kevinroche22/iTunesWrapped/blob/master/scripts/03%20-%20pdfReport.py)
 
 And outputs the following PDF:
-- [Kev's iTunes Wrapped 2021'](https://github.com/kevinroche22/iTunesWrapped/blob/master/iTunesWrapped2021.pdf)
+- [Kev's iTunes Wrapped 2021.](https://github.com/kevinroche22/iTunesWrapped/blob/master/iTunesWrapped2021.pdf)
