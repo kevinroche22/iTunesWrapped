@@ -76,6 +76,9 @@ def createReport(filename = 'iTunesWrapped2021.pdf'):
     pdf.ln(20)
     pdf.write(8, script)
     
+    # Add doom image
+    pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/doom.png", width-21, height-67, 8)
+    
     # Add logo again
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/logo.png", 34.5, height-55, width-80)
 
