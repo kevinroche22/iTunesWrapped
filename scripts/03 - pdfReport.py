@@ -38,81 +38,83 @@ script = 'December 1st, 2021: I woke up slowly and looked outside. It was snowin
 
 # Define function to create report
 def createReport(filename = 'iTunesWrapped2021.pdf'):
-    
+
     ## Define pdf
     pdf = FPDF()
 
     ''' Title Page '''
-    
+
     # Add title page
     pdf.add_page()
-    
+
     # Add letterhead
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/kevsLetterhead.png", 0, 0, width)
-    
+
     # Add logo
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/logo.png", 20.5, 95, width/2+60)
-    
+
     # Add intro text
     pdf.set_font('Helvetica', 'I', 12)
     pdf.ln(height-40)
     pdf.write(5, f'     Created {date}, just a day after Spotify Wrapped came out and ruined my life.')
-    
+
     ''' Introduction '''
-    
+
     # Add Intro page
     pdf.add_page()
-    
+
     # Add letterhead
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/kevsLetterhead.png", 0, 0, width)
-    
+
     # Add Intro Title
     pdf.set_font('Helvetica', 'B', 24)
     pdf.ln(62)
     pdf.write(5, f'A Quick Introduction')
-    
+
     # Add body text
     pdf.set_font('Helvetica', '', 12)
     pdf.ln(20)
     pdf.write(8, script)
-    
+
     # Add doom image
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/doom.png", width-21, height-67, 8)
-    
+
     # Add logo again
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/logo.png", 34.5, height-55, width-80)
 
     ''' Page Three '''
-    # Add table of contents
+
+    # Add page
     pdf.add_page()
-    
+
     # Add letterhead
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/kevsLetterhead.png", 0, 0, width)
-    
+
     # Add Title
     pdf.ln(62)
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/statsOne.png", 85, 42, 70)
-    
+
     # Add plot
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/plots/mostListenedArtists.png", 15, 80, width - 35)
 
     # Add Genre
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/plots/genreBreakdown.png", width-110, 202, 112)
-    
+
     # Add Stats
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/timeStats.png", 15, 202, 100)
 
     ''' Page Four '''
-    # Add table of contents
+
+    # Add page
     pdf.add_page()
     
     # Add letterhead
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/kevsLetterhead.png", 0, 0, width)
-    
+
     # Add Title
     pdf.ln(62)
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/statsTwo.png", 86, 42, 70)
-    
+
     # Add plots
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/plots/mostListenedSongs.png", 18, 90, width-15)
     pdf.image("/Users/kevinroche22/PythonData/iTunesWrapped/plots/mostListenedAlbums.png", 3, 195, width-8, height-205)
@@ -123,6 +125,3 @@ def createReport(filename = 'iTunesWrapped2021.pdf'):
 # Create report
 if __name__ == '__main__':
     createReport()
-
-
-
