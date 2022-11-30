@@ -24,7 +24,7 @@ for track in itunes.file_tracks():
             "dateAdded": track.date_added(),
             "genre": track.genre(),
             "duration": track.duration(),
-            "skips": track.skipped_count()
+            "skips": track.skipped_count(),
         }
     )
 
@@ -33,6 +33,6 @@ iTunesInfo = pd.DataFrame(iTunesInfo)
 
 ## Write to folder
 iTunesInfo.to_csv(
-    "/Users/kevinroche22/PythonData/iTunesWrapped/data/iTunesInfo.csv",
-    index=False
+    "/Users/kevinroche22/PythonData/iTunesWrapped/data/iTunesInfo2022.csv",
+    index=False,
 )
