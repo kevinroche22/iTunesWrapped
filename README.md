@@ -11,3 +11,4 @@ This project contains the following scripts:
 
 And outputs the following PDF:
 - [Kev's iTunes Wrapped 2021.](https://github.com/kevinroche22/iTunesWrapped/blob/master/iTunesWrapped2021.pdf)
+- [Kev's iTunes Wrapped 2022.](https://github.com/kevinroche22/iTunesWrapped/blob/master/iTunesWrapped2022.pdf)
