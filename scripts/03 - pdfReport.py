@@ -19,17 +19,17 @@ width = 210
 height = 297
 
 # Date report was written
-date = "November 30th, 2022"
+date = "November 29th, 2023"
 
 # Write body script
 script = (
-    "We're back. I spent 37,511 minutes listening to music in 2022, which is like 26 days, and a little more than last year. "
-    " This pales in comparison to Alex's ~100k minutes, which means the guy spent like 4.5 hours "
-    "a day listening to music, almost all of which was certainly Bad Bunny.\n\n"
-    "In other Spotify Wrapped news, Jonah found himself in the top 0.05% of Curtis Harding listeners this year, "
-    "firmly placing him in the company of hipsters and tech-loving grandparents.\n\n"
-    "I don't have much else to say, so I instead present to you, my loyal viewers, that same Alex acting like his Spotify got left on repeat "
-    "because he's embarassed his top song was none other than Jack Harlow's Dua Lipa.\n\n\n\n\n\n\n\n\n\n"
+    "T and I went to a play (social outing for assholes) a while back back and they made a joke about how people who send out Christmas newsletters are assholes."
+    " 'So true', I whispered to T, only a few weeks before building my annual Christmas newsletter for music like an asshole.\n\n"
+    "This year\'s findings were so embarassing that I had to add a brand new page measuring listens by hour instead of play count. "
+    "It helps the story a little bit, but at the end of the day all of my top 10 songs were either by Drake or White Drake. I might never reputationally recover from this.\n\n"
+    "The story here is that I'm slowly morphing into Gerard. 10K less hours of music listened to this year than last year, and a rock (ish?) album made it into the top 10. "
+    "I spend every summer day fighting the urge to ask my neighoburs kids to get off the lawn (this is not a joke), and I'm probably no less than two years away from taking an interest in the Kitchener Jazz Festival.\n\n"
+    "Cheers from your Kevin, the one you've known since you were seven.\n\n\n\n\n\n\n\n\n\n"
 )
 
 #################
@@ -37,7 +37,7 @@ script = (
 #################
 
 # Define function to create report
-def createReport(filename="iTunesWrapped2022.pdf"):
+def createReport(filename="iTunesWrapped2023.pdf"):
 
     ## Define pdf
     pdf = FPDF()
@@ -57,7 +57,7 @@ def createReport(filename="iTunesWrapped2022.pdf"):
 
     # Add logo
     pdf.image(
-        "/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/logo2022.png",
+        "/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/logo2023.png",
         20.5,
         95,
         width / 2 + 60,
@@ -94,17 +94,9 @@ def createReport(filename="iTunesWrapped2022.pdf"):
     pdf.ln(20)
     pdf.write(8, script)
 
-    # Add doom image
-    pdf.image(
-        "/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/alexRoast2022.png",
-        width / 2 - 24,
-        height - 126,
-        50,
-    )
-
     # Add logo again
     pdf.image(
-        "/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/logo2022.png",
+        "/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/logo2023.png",
         34.5,
         height - 55,
         width - 80,
@@ -148,17 +140,9 @@ def createReport(filename="iTunesWrapped2022.pdf"):
         112,
     )
 
-    # Add Jonah Roast
-    pdf.image(
-        "/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/jonahRoast2022.png",
-        width - 90,
-        135,
-        60,
-    )
-
     # Add Stats
     pdf.image(
-        "/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/timeStats2022.png",
+        "/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/timeStats2023.png",
         15,
         215,
         100,
@@ -200,7 +184,44 @@ def createReport(filename="iTunesWrapped2022.pdf"):
         190,
         width - 24,
     )
+    
+    """ Page Five """
 
+    # Add page
+    pdf.add_page()
+
+    # Add letterhead
+    pdf.image(
+        "/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/kevsLetterhead.png",
+        0,
+        0,
+        width,
+    )
+
+    # Add Title
+    pdf.ln(62)
+    pdf.image(
+        "/Users/kevinroche22/PythonData/iTunesWrapped/letterhead/statsThree.png",
+        86,
+        42,
+        70,
+    )
+
+    # Add plots
+    pdf.image(
+        "/Users/kevinroche22/PythonData/iTunesWrapped/plots/mostListenedSongsHours.png",
+        8,
+        90,
+        width - 22,
+    )
+
+    pdf.image(
+        "/Users/kevinroche22/PythonData/iTunesWrapped/plots/mostListenedAlbumsHours.png",
+        12,
+        190,
+        width - 24,
+    )
+    
     # Output pdf
     pdf.output(filename)
 

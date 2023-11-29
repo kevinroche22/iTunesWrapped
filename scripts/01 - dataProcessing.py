@@ -33,6 +33,6 @@ iTunesInfo = pd.DataFrame(iTunesInfo)
 
 ## Write to folder
 iTunesInfo.to_csv(
-    "/Users/kevinroche22/PythonData/iTunesWrapped/data/iTunesInfo2022.csv",
+    "/Users/kevinroche22/PythonData/iTunesWrapped/data/iTunesInfo2023.csv",
     index=False,
 )

@@ -18,7 +18,7 @@ import pyplot_themes as themes
 
 # Load raw iTunes data
 iTunesInfo = pd.read_csv(
-    "/Users/kevinroche22/PythonData/iTunesWrapped/data/iTunesInfo2022.csv"
+    "/Users/kevinroche22/PythonData/iTunesWrapped/data/iTunesInfo2023.csv"
 )
 
 #################
@@ -70,10 +70,10 @@ values = ["R&B", "Hip-Hop", "Missing", "Other"]
 # Simplify genres
 iTunesInfo["genre"] = np.select(conditions, values, default="task")
 
-# Filter on music added in 2022
+# Filter on music added in 2023
 iTunesInfo = iTunesInfo[
-    (iTunesInfo["dateAdded"] >= pd.to_datetime("2021-12-01"))
-    & (iTunesInfo["dateAdded"] <= pd.to_datetime("2022-12-01"))
+    (iTunesInfo["dateAdded"] >= pd.to_datetime("2022-12-01"))
+    & (iTunesInfo["dateAdded"] <= pd.to_datetime("2023-12-01"))
 ]
 
 # Define table styles
@@ -89,7 +89,7 @@ style = [dict(selector="th", props=thProps)]
 # Data Summaries #
 ##################
 
-# Determine 10 most listened songs that came out in 2021
+# Determine 10 most listened songs that came out in 2023
 mostListenedSongs = iTunesInfo.sort_values(
     by="playCount", kind="mergesort", ascending=False
 ).head(10)
@@ -101,7 +101,7 @@ listensPerDay = (
     .head(10)
 )
 
-# Determine 10 most listened artists that released in 2021
+# Determine 10 most listened artists that released in 2023
 mostListenedArtists = pd.DataFrame(
     iTunesInfo.groupby(["albumArtist"])["playCount"]
     .sum()
@@ -109,7 +109,7 @@ mostListenedArtists = pd.DataFrame(
     .head(10)
 )
 
-# Determine 10 most listened albums released in 2021
+# Determine 10 most listened albums released in 2023
 mostListenedAlbums = pd.DataFrame(
     iTunesInfo.groupby(["albumNameAndArtist"])["playCount"]
     .sum()
@@ -117,21 +117,22 @@ mostListenedAlbums = pd.DataFrame(
     .head(10)
 )
 
-# Determine 10 most skipped songs released in 2021
+# Determine 10 most skipped songs released in 2023
 mostSkips = iTunesInfo.sort_values(
     by="skips", kind="mergesort", ascending=False
 ).head(10)
 
 # Determine how many hours I spent listening to my top 10 songs
 hoursPerSong = pd.DataFrame(
-    iTunesInfo.groupby(["song", "albumArtist"])["totalSeconds"]
+    iTunesInfo.groupby(["songNameAndArtist"])["totalSeconds"]
     .sum()
     .sort_values(ascending=False)
     .head(10)
-)
-hoursPerSong["totalSeconds"] = hoursPerSong["totalSeconds"].div(3600)
+).reset_index()
+hoursPerSong["totalSeconds"] = round(hoursPerSong["totalSeconds"].div(3600),2)
 hoursPerSong = hoursPerSong.rename(
-    {"totalSeconds": "totalHours"}, axis="columns"
+    {"totalSeconds": "totalHours",
+     "songNameAndArtist": "songNameAndArtist"}, axis="columns"
 )
 hoursPerSong.style.set_table_styles(style)
 
@@ -141,8 +142,8 @@ hoursPerArtist = pd.DataFrame(
     .sum()
     .sort_values(ascending=False)
     .head(10)
-)
-hoursPerArtist["totalSeconds"] = hoursPerArtist["totalSeconds"].div(3600)
+).reset_index()
+hoursPerArtist["totalSeconds"] = round(hoursPerArtist["totalSeconds"].div(3600),2)
 hoursPerArtist = hoursPerArtist.rename(
     {"totalSeconds": "totalHours"}, axis="columns"
 )
@@ -154,8 +155,8 @@ hoursPerAlbum = pd.DataFrame(
     .sum()
     .sort_values(ascending=False)
     .head(10)
-)
-hoursPerAlbum["totalSeconds"] = hoursPerAlbum["totalSeconds"].div(3600)
+).reset_index()
+hoursPerAlbum["totalSeconds"] = round(hoursPerAlbum["totalSeconds"].div(3600),2)
 hoursPerAlbum = hoursPerAlbum.rename(
     {"totalSeconds": "totalHours"}, axis="columns"
 )
@@ -168,7 +169,7 @@ hoursPerGenre = pd.DataFrame(
     .sort_values(ascending=False)
     .head(3)
 )
-hoursPerGenre["totalSeconds"] = hoursPerGenre["totalSeconds"].div(3600)
+hoursPerGenre["totalSeconds"] = round(hoursPerGenre["totalSeconds"].div(3600),2)
 hoursPerGenre = hoursPerGenre.rename(
     {"genre": "genre", "totalSeconds": "totalHours"}, axis="columns"
 )
@@ -201,6 +202,11 @@ plt.savefig(
 )
 plt.show()
 
+
+
+
+## By Play Count 
+
 # Plot most listened songs
 mostListenedSongs = mostListenedSongs.sort_values("playCount")
 plt.barh(
@@ -208,7 +214,7 @@ plt.barh(
     mostListenedSongs["playCount"],
     color="tomato",
 )
-plt.title("Most Listened Songs of 2021")
+plt.title("Most Listened Songs of 2023")
 plt.xlabel("Play Count")
 plt.box(False)
 plt.savefig(
@@ -222,7 +228,7 @@ mostListenedArtists = mostListenedArtists.sort_values("playCount")
 plt.barh(
     mostListenedArtists.index, mostListenedArtists["playCount"], color="tomato"
 )
-plt.title("Most Listened Artists Of 2021")
+plt.title("Most Listened Artists Of 2023")
 plt.xlabel("Combined Play Count (Songs)")
 plt.box(False)
 plt.savefig(
@@ -236,11 +242,64 @@ mostListenedAlbums = mostListenedAlbums.sort_values("playCount")
 plt.barh(
     mostListenedAlbums.index, mostListenedAlbums["playCount"], color="tomato"
 )
-plt.title("Most Listened Albums of 2021")
+plt.title("Most Listened Albums of 2023")
 plt.xlabel("Combined Play Count (Songs)")
 plt.box(False)
 plt.savefig(
     "/Users/kevinroche22/PythonData/iTunesWrapped/plots/mostListenedAlbums.png",
+    bbox_inches="tight",
+)
+plt.show()
+
+
+
+
+## By Hours
+
+# Plot most listened songs (hours)
+mostListenedSongs = hoursPerSong.sort_values("totalHours")
+plt.barh(
+    mostListenedSongs["songNameAndArtist"],
+    mostListenedSongs["totalHours"],
+    color="tomato",
+)
+plt.title("Most Listened Songs (Hours) of 2023")
+plt.xlabel("Total Hours")
+plt.box(False)
+plt.savefig(
+    "/Users/kevinroche22/PythonData/iTunesWrapped/plots/mostListenedSongsHours.png",
+    bbox_inches="tight",
+)
+plt.show()
+
+# Plot most listened artists (hours)
+mostListenedArtists = hoursPerArtist.sort_values("totalHours")
+plt.barh(
+    mostListenedArtists["albumArtist"],
+    mostListenedArtists["totalHours"],
+    color="tomato",
+)
+plt.title("Most Listened Artists (Hours) Of 2023")
+plt.xlabel("Total Hours")
+plt.box(False)
+plt.savefig(
+    "/Users/kevinroche22/PythonData/iTunesWrapped/plots/mostListenedArtistsHours.png",
+    bbox_inches="tight",
+)
+plt.show()
+
+# Plot most listened albums (hours)
+mostListenedAlbums = hoursPerAlbum.sort_values("totalHours")
+plt.barh(
+    mostListenedAlbums["album"] + ", " + mostListenedAlbums["albumArtist"],
+    mostListenedAlbums["totalHours"],
+    color="tomato",
+)
+plt.title("Most Listened Albums (Hours) of 2023")
+plt.xlabel("Total Hours")
+plt.box(False)
+plt.savefig(
+    "/Users/kevinroche22/PythonData/iTunesWrapped/plots/mostListenedAlbumsHours.png",
     bbox_inches="tight",
 )
 plt.show()
